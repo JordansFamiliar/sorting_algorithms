@@ -2,7 +2,7 @@
 
 /**
  * insertion_sort_list - A function that sorts a doubly linked list of
- * integers in ascending order ising the Insertion sort algorithm.
+ * integers in ascending order using the Insertion sort algorithm.
  * @list: Pointer to the head of the doubly linked list
  * Return: void
  */
@@ -10,6 +10,8 @@ void insertion_sort_list(listint_t **list)
 {
         listint_t *node = *list, *comp_node;
 
+        if (node->next == NULL)
+                return;
         while (node != NULL)
         {
                 comp_node = node->prev;
