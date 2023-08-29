@@ -1,37 +1,34 @@
 #include "sort.h"
 
 /**
-* selection_sort - a function that sorts an array of integers in
-* ascending order using the selection sort algorithm.
-* @array: array to be sorted.
-* @size: size of the array.
-* Return: void.
-*/
-void selection_sort(int *array, size_t size)
+ * insertion_sort_list - A function that sorts a doubly linked list of
+ * integers in ascending order ising the Insertion sort algorithm.
+ * @list: Pointer to the head of the doubly linked list
+ * Return: void
+ */
+void insertion_sort_list(listint_t **list)
 {
-size_t i, j, index = 0;
-int min, change = 0;
+	listint_t *node = *list, *comp_node;
 
-if (array == NULL || size == 0)
-return;
-for (i = 0; i < size - 2; i++)
-{
-min = array[i];
-for (j = i; j < size; j++)
-{
-if (array[j] < min)
-{
-min = array[j];
-index = j;
-change = 1;
-}
-}
-if (change == 1)
-{
-array[index] = array[i];
-array[i] = min;
-print_array(array, size);
-}
-change = 0;
-}
+	while (node != NULL)
+	{
+		comp_node = node->prev;
+		if (comp_node != NULL && node->n < comp_node->n)
+		{
+			node->prev = comp_node->prev;
+			if (comp_node->prev != NULL)
+				comp_node->prev->next = node;
+			else
+				*list = node;
+			comp_node->next = node->next;
+			if (node->next != NULL)
+				node->next->prev = comp_node;
+			node->next = comp_node;
+			comp_node->prev = node;
+			print_list(*list);
+			node = *list;
+			continue;
+		}
+		node = node->next;
+	}
 }
